@@ -1,9 +1,10 @@
 ---
 name: Lorenzo Perozzi
-avatar: /static/images/avatar.png
+avatar: /static/images/Lorenzo.png
 occupation: Postdoc in geodata science
 company: Departement of Earth Science
 company2: University of Geneva
+gergba: https://www.unige.ch/ge-rgba/welcome/
 email: address@yoursite.com
 twitter: https://twitter.com/Twitter
 linkedin: https://www.linkedin.com
