@@ -3,7 +3,7 @@ name: Lorenzo Perozzi
 avatar: /static/images/avatar.png
 occupation: Postdoc in geodata science
 company: University of Geneva
-company2: Departement of Earth Science
+# company2: Departement of Earth Science
 email: address@yoursite.com
 twitter: https://twitter.com/Twitter
 linkedin: https://www.linkedin.com
