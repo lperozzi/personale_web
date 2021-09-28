@@ -1,8 +1,8 @@
 const siteMetadata = {
   title: 'Geodata science blog',
-  author: 'Geotactyc',
-  headerTitle: 'Geotactyc',
-  description: 'A blog created with Next.js and Tailwind.css',
+  author: 'Lorenzo Perozzi',
+  headerTitle: 'geomaap.io',
+  description: 'A blog about geodata processing and modeling',
   language: 'en-us',
   siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
   siteRepo: 'https://github.com/timlrx/tailwind-nextjs-starter-blog',

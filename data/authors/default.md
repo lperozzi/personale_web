@@ -5,10 +5,10 @@ occupation: Postdoc in geodata science
 company: Departement of Earth Science
 company2: University of Geneva
 gergba: https://www.unige.ch/ge-rgba/welcome/
-email: address@yoursite.com
-twitter: https://twitter.com/Twitter
-linkedin: https://www.linkedin.com
-github: https://github.com
+email: lorenzo.perozzi@gmail.com
+twitter: https://twitter.com/lor3nzop3rozzi
+linkedin: https://www.linkedin.com/in/lperozzi
+github: https://github.com/lperozzi
 ---
 
 Tails Azimuth is a professor of atmospheric sciences at the Stanford AI Lab. His research interests includes complexity modelling of tailwinds, headwinds and crosswinds.
