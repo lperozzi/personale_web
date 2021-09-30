@@ -8,7 +8,7 @@ const siteMetadata = {
   siteRepo: 'https://github.com/lperozzi/personale_web',
   siteLogo: '/static/images/logo.png',
   image: '/static/images/Lorenzo.jpg',
-  socialBanner: 'static/images/twitter-card.png',
+  socialBanner: '/static/images/twitter-card.png',
   email: 'lorenzo@geomaap.io',
   github: 'https://github.com/lperozzi',
   twitter: 'https://twitter.com/lor3nzop3rozzi',
