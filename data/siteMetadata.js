@@ -15,6 +15,7 @@ const siteMetadata = {
   facebook: 'https://facebook.com',
   youtube: 'https://youtube.com',
   linkedin: 'https://www.linkedin.com/in/lperozzi/',
+  googlescholar: 'https://scholar.google.com/citations?user=LWLv6M8AAAAJ&hl=en',
   locale: 'en-US',
   analytics: {
     // supports plausible, simpleAnalytics or googleAnalytics
