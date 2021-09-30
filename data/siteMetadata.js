@@ -11,7 +11,7 @@ const siteMetadata = {
   socialBanner: '/static/images/twitter-card.png',
   email: 'lorenzo@geomaap.io',
   github: 'https://github.com/lperozzi',
-  twitter: 'https://twitter.com/lor3nzop3rozzi',
+  twitter: 'https://twitter.com/Twitter',
   facebook: 'https://facebook.com',
   youtube: 'https://youtube.com',
   linkedin: 'https://www.linkedin.com/in/lperozzi/',
