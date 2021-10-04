@@ -2,7 +2,7 @@ const siteMetadata = {
   title: 'Geodata science blog',
   author: 'Lorenzo Perozzi',
   headerTitle: 'geomaap.io',
-  description: 'A blog about geodata processing, modeling and visualization',
+  description: 'A blog about geodata analysis, processing, modeling, and visualization',
   language: 'en-us',
   siteUrl: 'https://personale-web.vercel.app',
   siteRepo: 'https://github.com/lperozzi/personale_web',
@@ -21,7 +21,7 @@ const siteMetadata = {
     // supports plausible, simpleAnalytics or googleAnalytics
     plausibleDataDomain: '', // e.g. tailwind-nextjs-starter-blog.vercel.app
     simpleAnalytics: false, // true or false
-    googleAnalyticsId: '', // e.g. UA-000000-2 or G-XXXXXXX
+    googleAnalyticsId: 'UA-209206056-1', // e.g. UA-000000-2 or G-XXXXXXX
   },
   newsletter: {
     // supports mailchimp, buttondown, convertkit
