@@ -4,7 +4,7 @@ date: '2021-11-10'
 lastmod: '2021-11-11'
 tags: ['python', 'dash', 'webapp', 'GIS', 'tutorial']
 draft: false
-summary: 'Using plotly Dash to create a GIS webapp'
+summary: 'Using plotly Dash to build a GIS webapp'
 layout: PostLayout
 images: [ '/static/images/tutorial/dash.png']
 githuburl: https://github.com/lperozzi/dash-tutorial
@@ -53,7 +53,7 @@ The target is to map `SCORE` and `COS` column in Dash. Here coordinate are alrea
 
 ## Dash app
 
-### packages
+### packages and data
 
 The Dash python packages are:
 
@@ -87,7 +87,9 @@ import math
 import geopandas as gpd
 ```
 
-### app layout
+especially `pandas` will be used to import and apply few operations to the data. 
+
+### App layout
 
 After importing all the necessary package, we start the app: 
 
