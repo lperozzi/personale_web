@@ -1,5 +1,5 @@
 ---
-title: 'Visual exploratory anaysis with pydeck'
+title: 'Visual exploratory analysis with pydeck'
 date: '2021-09-28'
 lastmod: '2021-09-30'
 tags: ['python', 'visualization', 'tutorial']
@@ -20,13 +20,13 @@ This tutorial is part of a Data Science Tools meeting organized by the [Data Sci
 
 ## About
 
-Geothermal is a hot topic right now in Switzerland and especially in the Canton of Geneva. With the ongoing 3D seismic exploration campaign, which aims to better understand the subsurface structures and geological properties and develop geothermal energy that will be integrated in the district heating of the Canton of Geneva, to reduce the dependence from fossil fuels. For the moment, geothermal probes are the most common method of using geothermal heat in Switzerland. The probes extract geothermal energy from the soil and conduct it via a heat pump to a heating system.
+Geothermal is a hot topic right now in Switzerland and especially in the Canton of Geneva. [The ongoing 3D seismic exploration campaign](https://www.geothermies.ch/#), which aims to better understand the subsurface structures and geological properties and develop geothermal energy that will be integrated into the district heating of the Canton of Geneva, to reduce the dependence on fossil fuels. For the moment, geothermal probes are the most common method of using geothermal heat in Switzerland. The probes extract geothermal energy from the soil and conduct it via a heat pump to a heating system.
 
  During this tutorial, it will be shown how to use python to process and visualize a dataset about geothermal probes availability in the Canton of Geneva. This dataset can be obtained (open access) through the <a href="https://ge.ch/sitg/fiche/6867">SITG</a> (Système d’Information du Territoire à Genève). We will cover these aspects:
 
 - Load the geothermal probes dataset from the [Système d’Information du Territoire à Genève (SITG)](https://ge.ch/sitg/fiche/6867);  
 - Convert CRS coordinate system with `pyproj`;  
-- Extract depth information form attributes;  
+- Extract depth information from attributes;  
 - Visualizing the results with `pydeck`;  
 
 
@@ -49,7 +49,7 @@ your system: https://docs.anaconda.com/anaconda/install/
 
 **Create the `DST-geothermal-visual` conda environment:**
 
-1. Clone [this](https://github.com/geoenergy/DST1_pydeck_visual) repository;
+1. Clone [this](https://github.com/lperozzi/DST1_pydeck_visual) repository;
 1. Open a terminal (*Anaconda Prompt* if you are running Windows). The
    following steps should be done in the terminal;
 1. Navigate to the folder that has been cloned
@@ -100,7 +100,7 @@ We can inspect the dataset.
 sondes.head(5) # first 5 rows
 ``` 
 
-```python
+```text
 ====  ==========  ============  ==============  ==============  ==================================  ====================  ==========  =============================  =========================  ===========  ===========
   ..    ID_SONDE  ID_DOSSIER      ALTITUDE_MIN    ALTITUDE_MAX  DIMENSION                           FLUIDE                ETAT        DETERMINATION_PLANIMETRIQUE    REMARQUES                            E            N
 ====  ==========  ============  ==============  ==============  ==================================  ====================  ==========  =============================  =========================  ===========  ===========
@@ -112,12 +112,13 @@ sondes.head(5) # first 5 rows
 ====  ==========  ============  ==============  ==============  ==================================  ====================  ==========  =============================  =========================  ===========  ===========
 ```
 
-By using the `.info()` methods we can retrieve more details about the dataset such as the total number of rows and columns, the type of the columns and so on.
+By using the `.info()` methods we can retrieve more details about the dataset such as the total number of rows and columns, the type of the columns, and so on.
 
 ```python
 sondes.info()
 ```
-```python<class 'pandas.core.frame.DataFrame'>
+```text
+<class 'pandas.core.frame.DataFrame'>
 RangeIndex: 2033 entries, 0 to 2032
 Data columns (total 11 columns):
  #   Column                       Non-Null Count  Dtype  
@@ -144,7 +145,7 @@ In the dataset the only attributes that do not have `NaN` values are `E` and `N`
 ```python
 sondes[['E','N']].head(5)
 ```
-```python
+```text
 ====  ===========  ===========
   ..            E            N
 ====  ===========  ===========
@@ -159,18 +160,18 @@ sondes[['E','N']].head(5)
 `E` and `N` are in the CH1903+_LV95 reference system (also known as EPSG:2056). 
 To visualize the data with pydeck (and in general with all geospatial visualization packages) however, we need to work on *World Geodetic System 1984 - WGS84* (also know as EPSG:4326).
 
-The first step will then to reproject the data from the EPSG:2056 system to the EPSG:4326 system.
+The first step will then reproject the data from the EPSG:2056 system to the EPSG:4326 system.
 
 ## Reproject coordinate from EPSG:2056 to EPSG:4326
 
-There are several online converters for that such as [EPSG.io](https://epsg.io/), which works well when we have few set of coordinates to transform. However, to be efficient, we use `pyproj` that is a Python interface to [PROJ](https://proj.org/) (cartographic projections and coordinate transformation library).
+There are several online converters for that such as [EPSG.io](https://epsg.io/), which works well when we have a few sets of coordinates to transform. However, to be efficient, we use `pyproj` that is a Python interface to [PROJ](https://proj.org/) (cartographic projections and coordinate transformation library).
 
 ```python
 from pyproj import Transformer
 from pyproj import CRS
 ```
 
-1. Initializing CRS and create a transformer to convert from 2056 to 4326. 
+1. Initializing CRS and creating a transformer to convert from 2056 to 4326. 
  ```python
 crs_4326 = CRS.from_epsg(4326)
 crs_2056 = CRS.from_epsg(2056)
@@ -195,12 +196,12 @@ sondes[['E','N','lat','lon']].head(5)
 ```
 ## Retrieve depth of geothermal probes
 
-We want also know the depth of the geothermal probes. In the dataset we do not have an attribute for that, we need further inspection. Among the 11 columns we have `ALTITUDE_MIN`, `ALTITUDE_MAX` and `DIMENSION` that should give us this information. However these attributes contains several `NaN`. Let's inspect these attributes. 
+We want also know the depth of the geothermal probes. In the dataset we do not have an attribute for that, we need further inspection. Among the 11 columns we have `ALTITUDE_MIN`, `ALTITUDE_MAX` and `DIMENSION` that should give us this information. However, these attributes contain several `NaN`. Let's inspect these attributes. 
 
 ```python
 sondes[['ALTITUDE_MIN','ALTITUDE_MAX','DIMENSION']].sample(8, random_state=51)
 ```
-```python
+```text
 ====  ==============  ==============  ===============================
   ..    ALTITUDE_MIN    ALTITUDE_MAX  DIMENSION
 ====  ==============  ==============  ===============================
@@ -220,15 +221,15 @@ We have several cases:
 1. Depth information contained in the `DIMENSION` attributes, as a string text
 1. Depth information contained in the (`ALTITUDE_MAX` - `ALTITUDE_MIN`) attributes, as a string text
 
-Note: Normally, with `pd.read_csv()` the `NaNs` are automatically detected, however, depending on how the data have been compiled, it is not always the case. For example, the `0.0` value in `ALTITUDE_MAX` or `ALTITUDE_MIN` attribute, corresponds clearly to `NaNs` values. 
+Note: Normally, with `pd.read_csv()` the `NaNs` are automatically detected, however, depending on how the data have been compiled, it is not always the case. For example, the `0.0` value in `ALTITUDE_MAX` or `ALTITUDE_MIN` attribute corresponds clearly to `NaNs` values. 
 
-The next step will be to clean up all lines that contains `NaN`.
+The next step will be to clean up all lines that contain `NaN`.
 
 ```python
 sondes.replace(to_replace=0.0, value=np.NaN, inplace=True)
 sondes[['ALTITUDE_MIN','ALTITUDE_MAX','DIMENSION']].sample(8, random_state=51)
 ```
-```python
+```text
 ====  ==============  ==============  ===============================
   ..    ALTITUDE_MIN    ALTITUDE_MAX  DIMENSION
 ====  ==============  ==============  ===============================
@@ -249,7 +250,7 @@ Then we remove all rows with `NaN` in `ALTITUDE_MAX`, `ALTITUDE_MIN`, `DIMENSION
 sondes.dropna(subset=['ALTITUDE_MIN', 'ALTITUDE_MAX', 'DIMENSION'], thresh=2, inplace=True)
 sondes[['ALTITUDE_MIN','ALTITUDE_MAX','DIMENSION']].sample(8, random_state=51)
 ```
-```python
+```text
 ====  ==============  ==============  ==========================================
   ..    ALTITUDE_MIN    ALTITUDE_MAX  DIMENSION
 ====  ==============  ==============  ==========================================
@@ -273,7 +274,7 @@ sondes['DEPTH'] = np.nan
 sondes['DEPTH'].loc[idx1] = sondes.ALTITUDE_MAX - sondes.ALTITUDE_MIN
 sondes[['ALTITUDE_MIN','ALTITUDE_MAX','DIMENSION', 'DEPTH']].sample(8, random_state=2)
 ```
-```python
+```text
 ====  ==============  ==============  ===============================  =======
   ..    ALTITUDE_MIN    ALTITUDE_MAX  DIMENSION                          DEPTH
 ====  ==============  ==============  ===============================  =======
@@ -288,14 +289,14 @@ sondes[['ALTITUDE_MIN','ALTITUDE_MAX','DIMENSION', 'DEPTH']].sample(8, random_st
 ====  ==============  ==============  ===============================  =======
 ```
 
-... or from the `DIMENSION` column. This attribute is a string, from which we need to extract depth information. For this we use the following regular expression `str.extract('(\d+)')` that allow extracting the digits from the last 5 characters of the `DIMENSION` string text.
+... or from the `DIMENSION` column. This attribute is a string, from which we need to extract depth information. For this, we use the following regular expression `str.extract('(\d+)')` that allows extracting the digits from the last 5 characters of the `DIMENSION` string text.
 
 ```python
 idx2 = np.where((np.isnan(sondes['DEPTH'].values)))
 sondes['DEPTH'].loc[idx2] = sondes['DIMENSION'].loc[idx2].str[-5:].str.extract('(\d+)', expand=False).astype(np.float32)
 sondes[['ALTITUDE_MIN','ALTITUDE_MAX','DIMENSION', 'DEPTH']].sample(8, random_state=2)
 ```
-```python
+```text
 ====  ==============  ==============  ===============================  =======
   ..    ALTITUDE_MIN    ALTITUDE_MAX  DIMENSION                          DEPTH
 ====  ==============  ==============  ===============================  =======
@@ -310,11 +311,11 @@ sondes[['ALTITUDE_MIN','ALTITUDE_MAX','DIMENSION', 'DEPTH']].sample(8, random_st
 ====  ==============  ==============  ===============================  =======
 ```
 
-Now we all the information needed to visualize teh geothermal probes dataset with `pydeck`. 
+Now we have all the information needed to visualize the geothermal probes dataset with `pydeck`. 
 
 ## Interactive visual exploration using `pydeck`
 
-The "Layer" is a core concept of deck.gl. A deck.gl layer is a packaged visualization type that takes a collection of datums, associate each with positions, colors, extrusions, etc., and renders them on a map. For this visualization we use a `ColumnnLayer`. Read <a href="https://deck.gl/docs/api-reference/layers" target="_blank">this</a> for a deck.gl layer catalog overview.
+The "Layer" is a core concept of deck.gl. A deck.gl layer is a packaged visualization type that takes a collection of datums, associate each with positions, colors, extrusions, etc., and renders them on a map. For this visualization, we use a `ColumnnLayer`. Read <a href="https://deck.gl/docs/api-reference/layers" target="_blank">this</a> for a deck.gl layer catalog overview.
 
 ```python
 layer = pydeck.Layer(
@@ -346,6 +347,6 @@ r = pydeck.Deck(layers=[layer],
 r.to_html('geothermal-probes-viz-1.html',open_browser=False, iframe_height=750)
 ```
 
-The resulting visualization is a `.html` file that can be opened in any browser (<a href="/static/images/tutorial/visualization/geothermal-probes-viz-custom.html" target="_blank">click here to show the results in a browser</a>)
+The resulting visualization is a `.html`  file that can be opened in any browser (<a href="/static/images/tutorial/visualization/geothermal-probes-viz-custom.html" target="_blank">click here to show the results in a browser</a>)
 
 Data and code to reproduce this work can be found <a href="https://github.com/lperozzi/DST1_pydeck_visual" target="_blank">here.</a>
