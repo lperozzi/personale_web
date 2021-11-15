@@ -11,8 +11,8 @@ linkedin: https://www.linkedin.com/in/lperozzi
 github: https://github.com/lperozzi
 ---
 
-Lorenzo Perozzi is currently postdoctoral researcher at the University of Geneva. He has several years of experience in geodata processing, integration, modeling and visualization using machine learning and geostatistics.
+I'm currently postdoctoral researcher at the University of Geneva with experience in geodata processing, integration, modeling and visualization using machine learning and geostatistics.
 
-His vision is to develop innovative approaches and provide digital solutions to increase the power of geodata and contribute to an effective and sustainable exploration of the georessoures.
+My vision is to develop innovative approaches to analyzing and visualizing geodata and contribute to an effective and sustainable exploration of the georesources.
 
-Lorenzo holds a PhD and a MSc from the Institut de la recherche scientifique (Québec, Canada) as well as a MSc on engineering geology from the University of Lausanne (Switzerland).
+PhD in Earth Sciences, MSc in Engineering Geology, BSc in geology, from the Institut de la recherche scientifique (Québec, Canada) as well as a from the University of Lausanne (Switzerland).

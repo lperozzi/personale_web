@@ -66,7 +66,7 @@ from dash import html
 
 In addition `import dash_bootstrap_components as dbc` has been used. [Dash-bootstrap-components](https://dash-bootstrap-components.opensource.faculty.ai/) is a library of Bootstrap components for Plotly Dash, that makes it easier to build consistently styled apps with complex, responsive layouts. Another very useful resource for the app layout is [Dash Bootstrap Theme Explorers](https://hellodash.pythonanywhere.com/).
 
-Then we need to import tge Plotly python library for graphing. [Here](https://plotly.com/python/maps/) there is a list of available Maps we can create with Plotly and [Mapbox](https://www.mapbox.com/). We are interested to create an Hexagonal Binning density map. This technique  allows aggregating points into hexagon as the following images shows and it is particularly useful for visualizing large numbers of points. 
+Then we need to import the Plotly python library for graphing. [Here](https://plotly.com/python/maps/) there is a list of available Maps we can create with Plotly and [Mapbox](https://www.mapbox.com/). We are interested to create an Hexagonal Binning density map. This technique  allows aggregating points into hexagon as the following images show and it is particularly useful for visualizing large numbers of points. 
 
 ![hexbin](/static/images/tutorial/dash/hexbin.png)  
 
@@ -87,7 +87,7 @@ import math
 import geopandas as gpd
 ```
 
-especially `pandas` will be used to import and apply few operations to the data. 
+especially `pandas` will be used to import and apply a few operations to the data. 
 
 ### App layout
 
@@ -102,7 +102,7 @@ app = dash.Dash(__name__,
                 )
 ```
 
-where the meta_tags arguments allow to control the size of the app component through different devices size.
+where the meta_tags arguments allow controlling the size of the app component through different devices size.
 
 
 ![app layout](/static/images/tutorial/dash/layout.png)  
@@ -111,7 +111,7 @@ where the meta_tags arguments allow to control the size of the app component thr
 
 #### Navigation bar
 
-The navigation bar represents the title of the application. Thanks to the dash bootstrap components package, we can use `dbc.Row` and `dbc.Col` to subdivide the layout. For the Navbar we have a row and tow columns representing the logo and the title:
+The navigation bar represents the title of the application. Thanks to the dash bootstrap components package, we can use `dbc.Row` and `dbc.Col` to subdivide the layout. For the Navbar we have a row and two columns representing the logo and the title:
 
 ```Python
 navbar = dbc.Navbar(
@@ -136,7 +136,7 @@ navbar = dbc.Navbar(
 
 #### Control layout
 
-The control layout is where we interact with the map. Dash core [components](https://dash.plotly.com/dash-core-components) allow for interactive user interfaces. For this tutorial we used a mix of Dash core components and [dash bootstrap components](https://dash-bootstrap-components.opensource.faculty.ai/docs/components/) library that makes it easier to build responsive layouts. In particular we used **RangeSlider**, **Dropdown** and **Markdown** components, inside **Card** bootstrap components.
+The control layout is where we interact with the map. Dash core [components](https://dash.plotly.com/dash-core-components) allow for interactive user interfaces. For this tutorial we used a mix of Dash core components and [dash bootstrap components](https://dash-bootstrap-components.opensource.faculty.ai/docs/components/) library that makes it easier to build responsive layouts. In particular, we used **RangeSlider**, **Dropdown**, and **Markdown** components, inside **Card** bootstrap components.
 
 The range slider for targeting the depth of investigation:
 ```python
@@ -223,7 +223,7 @@ control_tab = dbc.CardGroup(
 )
 ```
 
-and the card with some text
+and the card with some text:
 ```python
 credits_tab = dbc.Card(
     dbc.CardBody(
@@ -466,7 +466,7 @@ You are ready to lunch the app with the command:
 python app.py
 ```
 
-it will open the app locally at the address `http://127.0.0.1:8050/`
+and the Dash app will open at the address `http://127.0.0.1:8050/`
 
 That's it, enjoy Dash! If you found this tutorial useful, please leave a comment below. 👇
 
@@ -474,7 +474,7 @@ That's it, enjoy Dash! If you found this tutorial useful, please leave a comment
 
 There is a GitHub [repository](https://github.com/lperozzi/dash-tutorial) associated with this tutorial if you are interested.
 
-There are lots of tutorials and resources on Dash, here a short list of them:
+There are lots of tutorials and resources on Dash, here is a short list of them:
 
 - Youtube channel of Charming Data:   
 https://www.youtube.com/c/CharmingData/videos
