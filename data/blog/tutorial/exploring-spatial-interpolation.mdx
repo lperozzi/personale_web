@@ -1,10 +1,10 @@
 ---
-title: 'A journey into plotly Dash'
-date: '2021-11-10'
-lastmod: '2021-11-11'
-tags: ['python', 'dash', 'webapp', 'GIS', 'tutorial']
+title: 'Exploring spatial interpolation'
+date: '2022-04-01'
+lastmod: '2022-04-01'
+tags: ['python', 'dash', 'webapp', 'geostat', 'tutorial']
 draft: false
-summary: 'Using plotly Dash to build a GIS webapp'
+summary: 'Which algorithm is best fitted to interpolate geological data?'
 layout: PostLayout
 images: [ '/static/images/tutorial/dash/dash.png']
 githuburl: https://github.com/lperozzi/dash-tutorial
@@ -14,16 +14,15 @@ githuburl: https://github.com/lperozzi/dash-tutorial
 
 ## Overview
 
-[Plotly Dash](https://dash.plotly.com/) is a productive Python framework for building web analytic applications. It is fairly easy to use, and allow to create awesome web applications. Written on top of Plotly.js and React.js, Dash is ideal for building and deploying data apps with customized user interfaces in pure Python. 
-Plotly's Python is a free and open-source graphing library that makes interactive, publication-quality graphs and maps. A series of tutorials and tips about fundamental features of Plotly's python are available [here](https://plotly.com/python/plotly-fundamentals/).
+In the previous post I explained how to create a GIS webapp using [plotly Dash](https://dash.plotly.com/), a productive Python framework for building web analytic applications. With this post I would like to show how we can use dash to render 3D data, using `dash-vtk`. With `dash-vtk` you can for example render a mesh representing a [LiDAR dataset](https://dash.gallery/dash-vtk-explorer/pyvista-point-cloud) or a [Terrain following mesh](https://dash.gallery/dash-vtk-explorer/pyvista-terrain-following-mesh). 
+The objective here is to compare different algorithms used to interpolate the depth of a geological unit (Molasse) in the Geneva (Switzerland) area.
 
-Dash It's particularly suited for anyone who works with data. Dash apps are rendered in the web browser. You can deploy your apps to VMs or Kubernetes clusters and then share them through URLs. Since Dash apps are viewed in the web browser, Dash is inherently cross-platform and mobile ready. To see the potential of Dash look at the [Dash App Gallery](https://dash.gallery/Portal/).
-
-This article will show how to use plotly Dash to create a simple GIS webapp similar to the [GECOS app](https://gecosapp.herokuapp.com/) developed by the [GE-RGBA](https://www.unige.ch/ge-rgba/welcome/) group of the University of Geneva.
 
 <TOCInline toc={props.toc} exclude="Overview" toHeading={3} />
 
 ## About
+
+The dataset used in this tutorials is from the well land register managed by the geological survey of the Canton of Geneva (GESDEC) and it is part of the open data catalogue of the SITG (Système d’Information du Territoire à Genève). It can be downloaded [here](https://ge.ch/sitg/fiche/4108).
 
 So, we have a nice geodataset, we have made a great analysis on it and we want to disseminate the results. One way is to plot the result on a map. One awesome example is the [Switzerland's regional income (in-)equality](https://timogrossenbacher.ch/2019/04/bivariate-maps-with-ggplot2-and-sf/) map made  by [Timo Grossenbacher](https://timogrossenbacher.ch/) using the `ggplot2` R package. This is nice for printed communication such as journal or infographics but we cannot interact with the data.
 To display multiple dataset GIS software such as [QGIS](https://qgis.org/) offers lots of (advanced) tools. However they have two main limitations: 
