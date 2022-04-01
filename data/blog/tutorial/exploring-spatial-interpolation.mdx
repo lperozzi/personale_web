@@ -216,47 +216,51 @@ One advantage of the geostatistical simulations over Kriging and determinist int
 
 In particular we focus on the following local summaries:
 
-* **e-type** is the local expectation (since equal weighted the same as the average)
+- **e-type** is the local expectation (since equal weighted the same as the average)
 
+```latex
 \begin{equation}
 e(\bf{u}_{\alpha}) = E \{x^{\ell}(\bf{u}_{\alpha}) \}, \quad \forall \quad \ell = 1., \ldots, L, \quad \alpha \in V
 \end{equation}
+```
+- **conditional standard deviation** is the local standard deviation over the realizations
 
-* **conditional standard deviation** is the local standard deviation over the realizations
-
+```latex
 \begin{equation}
 \sigma(\bf{u}_{\alpha}) = \sqrt{E \{ (x^{\ell}(\bf{u}_{\alpha})- e(\bf{u}_{\alpha}))^2 \} }, \quad \forall \quad \ell = 1., \ldots, L, \quad \alpha \in V
 \end{equation}
+```
+- **local percentile** is the local percentile over the realizations
 
-* **local percentile** is the local percentile over the realizations
-
+```latex
 \begin{equation}
 x^p(\bf{u}_{\alpha}) = F^{-1}(p)(\bf{u}_{\alpha}), \quad \alpha \in V
 \end{equation}
+```
 
 #### e-type and Conditional Variance
 
 We will start with the e-type and the conditional variance.  
 
-* **e-type** is the local expectation (just the average of the $L$ realizations at location $\bf{u}_{\alpha}$ as we assume all realizations are equally likely).
-* **conditional variance** is the local variance  
+- **e-type** is the local expectation (just the average of the $L$ realizations at location $\bf{u}_{\alpha}$ as we assume all realizations are equally likely).
+- **conditional variance** is the local variance  
 
 ![E-type and conditional variance](/static/images/tutorial/interpolation/etype.png)
 
 The e-type model is very similar to a kriging model, except for:
 
-* the Gaussian forward and back transform may change the results
-* result are noisy due to too few realizations
+- the Gaussian forward and back transform may change the results
+- result are noisy due to too few realizations
 
 The conditional variance is lowest at the data locations and increased away from the data
 
-* the result is noisy due to too few realizations
+- the result is noisy due to too few realizations
 
 #### Local Percentiles
 
 Now let's look at the:
 
-* **local percentile** maps are the maps with the local percentile values sampled from the local realizations
+- **local percentile** maps are the maps with the local percentile values sampled from the local realizations
 
 ![Local percentiles](/static/images/tutorial/interpolation/percent.png)
 
