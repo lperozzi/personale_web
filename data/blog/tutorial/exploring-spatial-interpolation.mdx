@@ -22,19 +22,17 @@ The objective here is to compare different algorithms used to interpolate the de
 
 ## About
 
-The dataset used in this tutorials is from the well land register managed by the geological survey of the Canton of Geneva (GESDEC) and it is part of the open data catalogue of the SITG (Système d’Information du Territoire à Genève). It can be downloaded [here](https://ge.ch/sitg/fiche/4108).
+The dataset used in this tutorials is from the well land register managed by the geological survey of the Canton of Geneva (GESDEC) and it is part of the open data catalogue of the SITG (Système d’Information du Territoire à Genève). It can be downloaded [here](https://ge.ch/sitg/fiche/4108). from this dataset we want to interpolate the depth of the Molasse over a subregion of the Geneva, using the following interpolation algorithms:
 
-So, we have a nice geodataset, we have made a great analysis on it and we want to disseminate the results. One way is to plot the result on a map. One awesome example is the [Switzerland's regional income (in-)equality](https://timogrossenbacher.ch/2019/04/bivariate-maps-with-ggplot2-and-sf/) map made  by [Timo Grossenbacher](https://timogrossenbacher.ch/) using the `ggplot2` R package. This is nice for printed communication such as journal or infographics but we cannot interact with the data.
-To display multiple dataset GIS software such as [QGIS](https://qgis.org/) offers lots of (advanced) tools. However they have two main limitations: 
-- the user needs to have an installed version of the GIS software, 
-- due to their steep learning, only GIS professional will really use it.
-
-Instead, Web GIS applications allow us to disseminate the results to a broader audience, including public users who may know less or nothing about GIS, such as Governments/Administration/public stakeholders, in a user friendly way that is specifically designed for simplicity, intuition, and convenience, making it typically much easier to use than desktop GIS.
-
+- Nearest-neighbors
+- Biharmoninc spline (using Verde)
+- Gaussian processes 
+- Kriging
+- Sequential Gaussian Simulation
 
 ## Dataset
 
-The dataset used is similar to the one used in the [GECOS](https://gecos.geoenergy.ch/) web app however, due to permission limitations it has been slightly modified. It contains 6 columns:
+The dataset can be downloaded [here](https://ge.ch/sitg/fiche/4108) or fetched using the opendata.swiss API as follows:
 
 ```text
 ====  =======  =======  ============  ============  =======  =====
@@ -57,10 +55,22 @@ The target is to map `SCORE` and `COS` column in Dash. Here coordinate are alrea
 The Dash python packages are:
 
 ```python
-import dash
-from dash.dependencies import Input, Output, State
-from dash import dcc
-from dash import html
+from zipfile import ZipFile
+import urllib.request
+from io import BytesIO
+# zip_file = ZipFile(urllib.request.urlopen((data_url).read()))
+data_url = 'https://ge.ch/sitg/geodata/SITG/OPENDATA/4108/CSV_GOL_SONDAGE.zip'
+# data_url = 'https://ge.ch/sitg/geodata/SITG/OPENDATA/4108/SHP_FFP_REG04_BLEU_LIGNE.zip'
+
+zip_file = ZipFile(BytesIO(urllib.request.urlopen(data_url).read()))
+
+dfs = {text_file.filename: pd.read_csv(zip_file.open(text_file.filename),           encoding='ISO-8859-1', 
+sep=';',)
+       for text_file in zip_file.infolist()
+       if text_file.filename.endswith('.csv')}
+
+for key, values in dfs.items():
+    print(key)
 ```
 
 In addition `import dash_bootstrap_components as dbc` has been used. [Dash-bootstrap-components](https://dash-bootstrap-components.opensource.faculty.ai/) is a library of Bootstrap components for Plotly Dash, that makes it easier to build consistently styled apps with complex, responsive layouts. Another very useful resource for the app layout is [Dash Bootstrap Theme Explorers](https://hellodash.pythonanywhere.com/).
