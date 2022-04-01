@@ -17,6 +17,10 @@ githuburl: https://github.com/lperozzi/dash-tutorial
 In the previous post I explained how to create a GIS webapp using [plotly Dash](https://dash.plotly.com/), a productive Python framework for building web analytic applications. With this post I would like to show how we can use dash to render 3D data, using `dash-vtk`. With `dash-vtk` you can for example render a mesh representing a [LiDAR dataset](https://dash.gallery/dash-vtk-explorer/pyvista-point-cloud) or a [Terrain following mesh](https://dash.gallery/dash-vtk-explorer/pyvista-terrain-following-mesh). 
 The objective here is to compare different algorithms used to interpolate the depth of a geological unit (Molasse) in the Geneva (Switzerland) area.
 
+There is a GitHub [repository](https://github.com/lperozzi/Spatial_interpolation_analysis) associated with this tutorial with the notebook for the spatial analysis.
+
+The app is hosted [here]https://github.com/lperozzi/Spatial_interpolation_app)  and deployed at this address [https://spatial-interpolation.herokuapp.com/](https://spatial-interpolation.herokuapp.com/).
+
 
 <TOCInline toc={props.toc} exclude="Overview" toHeading={3} />
 
@@ -34,33 +38,12 @@ The dataset used in this tutorials is from the well land register managed by the
 
 The dataset can be downloaded [here](https://ge.ch/sitg/fiche/4108) or fetched using the opendata.swiss API as follows:
 
-```text
-====  =======  =======  ============  ============  =======  =====
-  ..        X        Y  MEASUREMEN      TARGET DEP    SCORE    COS
-====  =======  =======  ============  ============  =======  =====
-   0  6.05173  46.1659  Gravimetry            3000        5      1
-   1  6.05175  46.165   Seismic 2D             500       20     40
-   2  6.05178  46.1641  Seismic 2D            2000       20      5
-   3  6.0518   46.1632  Seismic 2D            1000       15     49
-   4  6.05302  46.1659  Gravimetry            3000        5      8
-====  =======  =======  ============  ============  =======  =====
-```
-
-The target is to map `SCORE` and `COS` column in Dash. Here coordinate are already in EPSG:4326; however usually we need to convert from local projection (for Switzerland this is often EPSG:2056) to global Mercator projection. In [this](https://www.geomaap.io/blog/visualization/DST-viz-pydeck) I showed how to do that.
-
-## Dash app
-
-### packages and data
-
-The Dash python packages are:
-
 ```python
 from zipfile import ZipFile
 import urllib.request
 from io import BytesIO
-# zip_file = ZipFile(urllib.request.urlopen((data_url).read()))
 data_url = 'https://ge.ch/sitg/geodata/SITG/OPENDATA/4108/CSV_GOL_SONDAGE.zip'
-# data_url = 'https://ge.ch/sitg/geodata/SITG/OPENDATA/4108/SHP_FFP_REG04_BLEU_LIGNE.zip'
+
 
 zip_file = ZipFile(BytesIO(urllib.request.urlopen(data_url).read()))
 
@@ -69,9 +52,41 @@ sep=';',)
        for text_file in zip_file.infolist()
        if text_file.filename.endswith('.csv')}
 
-for key, values in dfs.items():
-    print(key)
+sondage = dfs['GOL_SONDAGE.csv']
 ```
+
+## Interpolation algorithms
+
+Refers to [these notebooks](https://github.com/lperozzi/Spatial_interpolation_analysis/tree/master/notebook) for a detailed explanation of the spatial analysis presented in the next section
+
+### Nearest neighbors 
+
+The easiest way to apply the NN algorithm is by using the [Verde](https://www.fatiando.org/verde/latest/) package. The dataset has been BlockReduced to a regular grid of 50m x 50m.
+
+```python
+hain = vd.Chain(
+    [
+        ("mean", vd.BlockReduce(np.mean, spacing=spacing )),
+        ("spline", vd.ScipyGridder(method="nearest")),
+    ]
+)
+
+train, test = vd.train_test_split(
+    coordinates,df.MOLASSE, random_state=0
+)
+
+chain.fit(*train)
+
+grid = chain.grid(
+    region=region,
+    spacing=spacing,
+    dims=["N", "E"],
+    data_names="MOLASSE",
+)
+```
+
+![Nearest-neighbor interpolation](/static/images/tutorial/interpolation/nn.png)
+
 
 In addition `import dash_bootstrap_components as dbc` has been used. [Dash-bootstrap-components](https://dash-bootstrap-components.opensource.faculty.ai/) is a library of Bootstrap components for Plotly Dash, that makes it easier to build consistently styled apps with complex, responsive layouts. Another very useful resource for the app layout is [Dash Bootstrap Theme Explorers](https://hellodash.pythonanywhere.com/).
 
