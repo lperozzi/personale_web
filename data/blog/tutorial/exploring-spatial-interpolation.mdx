@@ -19,7 +19,7 @@ The objective here is to compare different algorithms used to interpolate the de
 
 There is a GitHub [repository](https://github.com/lperozzi/Spatial_interpolation_analysis) associated with this tutorial with the notebook for the spatial analysis.
 
-The app is hosted [here](https://github.com/lperozzi/Spatial_interpolation_app)  and deployed at this address [https://spatial-interpolation.herokuapp.com/](https://spatial-interpolation.herokuapp.com/).
+The app is hosted on GitHub [here](https://github.com/lperozzi/Spatial_interpolation_app)  and deployed on Heroku at this address [https://spatial-interpolation.herokuapp.com/](https://spatial-interpolation.herokuapp.com/).
 
 
 <TOCInline toc={props.toc} exclude="Overview" toHeading={3} />
@@ -56,6 +56,7 @@ sondage = dfs['GOL_SONDAGE.csv']
 ```
 
 ![Pointset](/static/images/tutorial/interpolation/map.png)
+<center>Subset of wells with measured depth of Molasse</center>
 
 ## Interpolation algorithms
 
@@ -89,7 +90,7 @@ grid = chain.grid(
 ```
 
 ![Nearest-neighbor interpolation](/static/images/tutorial/interpolation/nn.png)
-
+<center>Nearest-neighbor interpolation</center>
 ### Biharmonic spline (default)
 
 Next a biharmonic spline interpolation using Green's functions has been tested, where the two main parameters are `mindist`, the minimum distance the point forces and data points and `damping`, that controls how much smoothness is imposed on the estimated forces.
@@ -114,6 +115,7 @@ grid = chain.grid(
 )
 ```
 ![biharmonic spline interpolation (default)](/static/images/tutorial/interpolation/spline.def.png)
+<center>Biharmonic spline interpolation with default parameters</center>
 
 ### Biharmonic spline (cross validated)
 
