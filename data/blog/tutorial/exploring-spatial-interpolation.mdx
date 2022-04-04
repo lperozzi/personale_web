@@ -10,11 +10,10 @@ images: [ '/static/images/tutorial/interpolation/interpolation.png']
 githuburl: https://github.com/lperozzi/dash-tutorial
 ---
 
-<div> style={{textAlign: 'center'}}>
-
-![dash](/static/images/tutorial/interpolation/interpolation.png)
-
+<div style={{textAlign: 'center'}}>
+  <img src="/static/images/tutorial/interpolation/interpolation.png" />
 </div>
+
 
 ## Overview
 
@@ -59,7 +58,10 @@ sep=';',)
 sondage = dfs['GOL_SONDAGE.csv']
 ```
 
-![Pointset](/static/images/tutorial/interpolation/map.png)
+<div style={{textAlign: 'center'}}>
+  <img src="/static/images/tutorial/interpolation/map.png" />
+</div>
+
 <center>Subset of wells with measured depth of Molasse</center>
 
 ## Interpolation algorithms
@@ -92,10 +94,9 @@ grid = chain.grid(
     data_names="MOLASSE",
 )
 ```
+
 <div style={{textAlign: 'center'}}>
-
-![Nearest-neighbor interpolation](/static/images/tutorial/interpolation/nn.png)
-
+  <img src="/static/images/tutorial/interpolation/nn.png" />
 </div>
 
 <center>Nearest-neighbor interpolation</center>
@@ -123,7 +124,10 @@ grid = chain.grid(
 )
 )
 ```
-![biharmonic spline interpolation (default)](/static/images/tutorial/interpolation/spline_def.png)
+
+<div style={{textAlign: 'center'}}>
+  <img src="/static/images/tutorial/interpolation/spline_def.png" />
+</div>
 
 <center>Biharmonic spline interpolation with default parameters</center>
 
@@ -167,7 +171,12 @@ grid = chain.grid(
     data_names="MOLASSE",
 )
 ```
-![biharmonic spline interpolation (cross-validated)](/static/images/tutorial/interpolation/spline_cv.png)
+
+<div style={{textAlign: 'center'}}>
+  <img src="/static/images/tutorial/interpolation/spline_cv.png" />
+</div>
+
+<center>Biharmonic spline interpolation after cross validation</center>
 
 
 Notice that, for sparse data like these, smoother models tend to be better predictors. This is a sign that you should probably not trust many of the short wavelength features that we get from the defaults.
@@ -196,7 +205,11 @@ gp = GPR(normalize_y=True, alpha=0.5, kernel=kernel,)
 gp.fit(df[['E', 'N']].values, df.MOLASSE.values)
 ```
 
-![Gaussian Processes interpolation](/static/images/tutorial/interpolation/GP.png)
+<div style={{textAlign: 'center'}}>
+  <img src="/static/images/tutorial/interpolation/GP.png" />
+</div>
+
+<center>Gaussian Processes interpolation</center>
 
 
 ### Kriging
@@ -213,7 +226,11 @@ Here are some important properties of kriging (Pyrcz, 2021):
 
 The step to obtain a kriging estimate are a little more complex, first a variogram should be computed. For an in depth review of variogram calculation and modeling look [here](https://github.com/GeostatsGuy/PythonNumericalDemos/blob/master/GeostatsPy_variogram_calculation.ipynb) and [here](https://github.com/GeostatsGuy/PythonNumericalDemos/blob/master/GeostatsPy_variogram_modeling.ipynb). 
 
-![Kriging interpolation](/static/images/tutorial/interpolation/OK.png)
+<div style={{textAlign: 'center'}}>
+  <img src="/static/images/tutorial/interpolation/OK.png" />
+</div>
+
+<center>Ordinary Kriging interpolation</center>
 
 ### Sequential Gaussian Simulation
 
@@ -221,7 +238,11 @@ The objective of SGS is to building spatial models that honor the univariate and
 
 For this tutorials 10 likely realization have been generated
 
-![SGS realization](/static/images/tutorial/interpolation/real.png)
+<div style={{textAlign: 'center'}}>
+  <img src="/static/images/tutorial/interpolation/real.png" />
+</div>
+
+<center>Sequential Gaussian Simulation interpolation</center>
 
 One advantage of the geostatistical simulations over Kriging and determinist interpolators is the possibility to summarize uncertainty over the realizations that is useful for:
 
@@ -244,7 +265,12 @@ We will start with the e-type and the conditional variance.
 - **e-type** is the local expectation (just the average of the $L$ realizations at location $\bf{u}_{\alpha}$ as we assume all realizations are equally likely).
 - **conditional variance** is the local variance  
 
-![E-type and conditional variance](/static/images/tutorial/interpolation/etype.png)
+<div style={{textAlign: 'center'}}>
+  <img src="/static/images/tutorial/interpolation/etype.png" />
+</div>
+
+<center>E-type and local standard deviation of realizations</center>
+
 
 The e-type model is very similar to a kriging model, except for:
 
@@ -261,7 +287,11 @@ Now let's look at the:
 
 - **local percentile** maps are the maps with the local percentile values sampled from the local realizations
 
-![Local percentiles](/static/images/tutorial/interpolation/percent.png)
+<div style={{textAlign: 'center'}}>
+  <img src="/static/images/tutorial/interpolation/percent.png" />
+</div>
+
+<center>Local percentiles of realizations</center
 
 We can interpret them as follows, at a location if we have a local P10 of -300m, then we have a 90% probability of the depth is closer to the surface.
 
