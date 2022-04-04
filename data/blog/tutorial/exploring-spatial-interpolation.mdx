@@ -10,7 +10,11 @@ images: [ '/static/images/tutorial/interpolation/interpolation.png']
 githuburl: https://github.com/lperozzi/dash-tutorial
 ---
 
+<div> style={{textAlign: 'center'}}>
+
 ![dash](/static/images/tutorial/interpolation/interpolation.png)
+
+</div>
 
 ## Overview
 
@@ -88,9 +92,14 @@ grid = chain.grid(
     data_names="MOLASSE",
 )
 ```
+<div style={{textAlign: 'center'}}>
 
 ![Nearest-neighbor interpolation](/static/images/tutorial/interpolation/nn.png)
+
+</div>
+
 <center>Nearest-neighbor interpolation</center>
+
 ### Biharmonic spline (default)
 
 Next a biharmonic spline interpolation using Green's functions has been tested, where the two main parameters are `mindist`, the minimum distance the point forces and data points and `damping`, that controls how much smoothness is imposed on the estimated forces.
@@ -114,7 +123,7 @@ grid = chain.grid(
 )
 )
 ```
-![biharmonic spline interpolation (default)](/static/images/tutorial/interpolation/spline.def.png)
+![biharmonic spline interpolation (default)](/static/images/tutorial/interpolation/spline_def.png)
 
 <center>Biharmonic spline interpolation with default parameters</center>
 
