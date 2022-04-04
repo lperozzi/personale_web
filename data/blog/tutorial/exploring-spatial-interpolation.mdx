@@ -10,7 +10,7 @@ images: [ '/static/images/tutorial/interpolation/interpolation.png']
 githuburl: https://github.com/lperozzi/dash-tutorial
 ---
 
-<div style={{textAlign: 'center'}}>
+<div align="center">
   <img src="/static/images/tutorial/interpolation/interpolation.png" />
 </div>
 
@@ -58,7 +58,7 @@ sep=';',)
 sondage = dfs['GOL_SONDAGE.csv']
 ```
 
-<div style={{textAlign: 'center'}}>
+<div align="center">
   <img src="/static/images/tutorial/interpolation/map.png" />
 </div>
 
@@ -95,7 +95,7 @@ grid = chain.grid(
 )
 ```
 
-<div style={{textAlign: 'center'}}>
+<div align="center">
   <img src="/static/images/tutorial/interpolation/nn.png" />
 </div>
 
@@ -125,7 +125,7 @@ grid = chain.grid(
 )
 ```
 
-<div style={{textAlign: 'center'}}>
+<div align="center">
   <img src="/static/images/tutorial/interpolation/spline_def.png" />
 </div>
 
@@ -205,7 +205,7 @@ gp = GPR(normalize_y=True, alpha=0.5, kernel=kernel,)
 gp.fit(df[['E', 'N']].values, df.MOLASSE.values)
 ```
 
-<div style={{textAlign: 'center'}}>
+<div align="center">
   <img src="/static/images/tutorial/interpolation/GP.png" />
 </div>
 
@@ -226,7 +226,7 @@ Here are some important properties of kriging (Pyrcz, 2021):
 
 The step to obtain a kriging estimate are a little more complex, first a variogram should be computed. For an in depth review of variogram calculation and modeling look [here](https://github.com/GeostatsGuy/PythonNumericalDemos/blob/master/GeostatsPy_variogram_calculation.ipynb) and [here](https://github.com/GeostatsGuy/PythonNumericalDemos/blob/master/GeostatsPy_variogram_modeling.ipynb). 
 
-<div style={{textAlign: 'center'}}>
+<div align="center">
   <img src="/static/images/tutorial/interpolation/OK.png" />
 </div>
 
@@ -238,7 +238,7 @@ The objective of SGS is to building spatial models that honor the univariate and
 
 For this tutorials 10 likely realization have been generated
 
-<div style={{textAlign: 'center'}}>
+<div align="center">
   <img src="/static/images/tutorial/interpolation/real.png" />
 </div>
 
@@ -265,7 +265,7 @@ We will start with the e-type and the conditional variance.
 - **e-type** is the local expectation (just the average of the $L$ realizations at location $\bf{u}_{\alpha}$ as we assume all realizations are equally likely).
 - **conditional variance** is the local variance  
 
-<div style={{textAlign: 'center'}}>
+<div align="center">
   <img src="/static/images/tutorial/interpolation/etype.png" />
 </div>
 
