@@ -4,7 +4,7 @@ date: '2022-04-01'
 lastmod: '2022-04-01'
 tags: ['python', 'dash', 'webapp', 'geostat', 'tutorial']
 draft: false
-summary: 'Which algorithm is best fitted to interpolate geological data?'
+summary: 'Which algorithm is best fitted to interpolate location-oriented data?'
 layout: PostLayout
 images: [ '/static/images/tutorial/interpolation/interpolation.png']
 githuburl: https://github.com/lperozzi/dash-tutorial
@@ -32,7 +32,7 @@ The app is hosted on GitHub [here](https://github.com/lperozzi/Spatial_interpola
 The dataset used in this tutorials is from the well land register managed by the geological survey of the Canton of Geneva (GESDEC) and it is part of the open data catalogue of the SITG (Système d’Information du Territoire à Genève). It can be downloaded [here](https://ge.ch/sitg/fiche/4108). from this dataset we want to interpolate the depth of the Molasse over a subregion of the Geneva, using the following interpolation algorithms:
 
 - Nearest-neighbors;
-- Biharmonic spline (using Verde);
+- Biharmonic spline (using `Verde`);
 - Gaussian processes;
 - Kriging;
 - Sequential Gaussian Simulation;
@@ -62,7 +62,7 @@ sondage = dfs['GOL_SONDAGE.csv']
   <img src="/static/images/tutorial/interpolation/map.png" />
 </div>
 
-<center>Subset of wells with measured depth of Molasse</center>
+<center>Subset of wells with measured depth of Molasse in Geneva (Switzerland)</center>
 
 ## Interpolation algorithms
 
@@ -70,11 +70,11 @@ Refers to [these notebooks](https://github.com/lperozzi/Spatial_interpolation_an
 
 ### Nearest neighbors 
 
-The easiest way to apply the NN algorithm is by using the [Verde](https://www.fatiando.org/verde/latest/) package. The dataset has been BlockReduced to a regular grid of 50m x 50m.
+The easiest way to apply the NN algorithm is by using the [Verde](https://www.fatiando.org/verde/latest/) package (Uieda L., 2018)^1. The dataset has been BlockReduced to a regular grid of 50m x 50m.
 
 ```python
 import verde as vd
-hain = vd.Chain(
+chain = vd.Chain(
     [
         ("mean", vd.BlockReduce(np.mean, spacing=spacing )),
         ("spline", vd.ScipyGridder(method="nearest")),
@@ -121,7 +121,6 @@ grid = chain.grid(
     # projection=projection,
     dims=["N", "E"],
     data_names="MOLASSE",
-)
 )
 ```
 
@@ -214,7 +213,7 @@ gp.fit(df[['E', 'N']].values, df.MOLASSE.values)
 
 ### Kriging
 
-Kriging is a widly used spatial interpolator. Here we use the `GeostatPy` package (Pyrcz et al., 2021), which is the python version of translated to Python from the original FORTRAN GSLIB: Geostatistical Library methods (Deutsch and Journel, 1997).
+Kriging is a widly used spatial interpolator. Here we use the [GeostatPy][https://github.com/GeostatsGuy/GeostatsPy) package (Pyrcz et al., 2021)^2, which is the python version of translated to Python from the original FORTRAN GSLIB: Geostatistical Library methods (Deutsch and Journel, 1997).
 Here are some important properties of kriging (Pyrcz, 2021):
 
 - Exact interpolator - kriging estimates with the data values at the data locations
@@ -315,5 +314,10 @@ There are lots of tutorials and resources on Dash, here is a short list of them:
 - [A journey into Plotly Dash](https://www.geomaap.io/blog/tutorial/dash-tutorial)
 - [Dash community forum](https://community.plotly.com/c/dash/python/25)
 
+### Python packages
+
+[1]: Uieda, L. (2018). Verde: Processing and gridding spatial data using Green's functions. Journal of Open Source Software, 3(29), 957. doi:10.21105/joss.00957
+
+[2]: Pyrcz, M.J., Jo. H., Kupenko, A., Liu, W., Gigliotti, A.E., Salomaki, T., and Santos, J., 2021, GeostatsPy Python Package, PyPI, Python Package Index
 
 That's it, enjoy interpolating with your own data! If you found this tutorial useful, please leave a comment below. 👇👇👇
