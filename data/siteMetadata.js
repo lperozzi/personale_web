@@ -6,7 +6,7 @@ const siteMetadata = {
   language: 'en-us',
   siteUrl: 'https://personale-web.vercel.app',
   siteRepo: 'https://github.com/lperozzi/personale_web',
-  siteLogo: '/static/images/logo.png',
+  siteLogo: '/static/images/logo.svg',
   image: '/static/images/Lorenzo.jpg',
   socialBanner: '/static/images/twitter-card.png',
   email: 'lorenzo@geomaap.io',
