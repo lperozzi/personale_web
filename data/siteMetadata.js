@@ -1,7 +1,7 @@
 const siteMetadata = {
   title: 'Geodata science blog',
   author: 'Lorenzo Perozzi',
-  headerTitle: 'geomaap.io',
+  headerTitle: '',
   description: 'A blog about (geo)data analysis, processing, modeling, and visualization',
   language: 'en-us',
   siteUrl: 'https://personale-web.vercel.app',
