@@ -1,8 +1,8 @@
 ---
 name: Lorenzo Perozzi
-avatar: /static/images/Lorenzo.jpg
-occupation: Data scientist
-company: Geomaap
+avatar: /static/images/Lorenzo_new.jpg
+occupation: Data Science, Geostatistics
+company: 
 company2: 
 gergba: https://www.unige.ch/ge-rgba/welcome/
 email: lorenzo@geomaap.io
@@ -13,6 +13,6 @@ github: https://github.com/lperozzi
 
 I'm a data scientist with experience in geodata processing, integration, modeling and visualization using machine learning and geostatistics.
 
-My vision is to develop innovative approaches for (geo)data analysis and visualization and contribute to an effective and sustainable exploration of the georesources. I'm passionate about computational geoscience, open-source developments, and innovative solutions to help customers reach their objectives. 
+My vision is to develop and apply innovative approaches for geospatial analytics  and visualization. I'm passionate about computational geoscience, open-source developments, and innovative solutions to help customers reach their objectives. 
 
 PhD in Earth Sciences, MSc in Engineering Geology, BSc in geology, from the Institut de la recherche scientifique (Québec, Canada) and from the University of Lausanne (Switzerland).
