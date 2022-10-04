@@ -21,18 +21,26 @@ module.exports = {
       },
       colors: {
         primary: colors.cyan,
-        gray: colors.trueGray,
+        gray: colors.trueNeutral,
+        'geomaapback': {
+          
+          900: '#171717',
+        },
+        'text': {
+          
+          100: '#d1d5db',
+        },
       },
       typography: (theme) => ({
         DEFAULT: {
           css: {
             color: theme('colors.gray.700'),
             a: {
-              color: theme('colors.primary.600'),
+              color: theme('colors.primary.400'),
               '&:hover': {
-                color: theme('colors.primary.500'),
+                color: theme('colors.primary.300'),
               },
-              code: { color: theme('colors.primary.500') },
+              code: { color: theme('colors.primary.400') },
             },
             h1: {
               fontWeight: '700',
@@ -91,7 +99,7 @@ module.exports = {
         },
         dark: {
           css: {
-            color: theme('colors.gray.300'),
+            color: theme('colors.text.100'),
             a: {
               color: theme('colors.primary.500'),
               '&:hover': {
